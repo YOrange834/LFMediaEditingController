@@ -10,7 +10,7 @@
 #import "LFVideoTrimmerGridView.h"
 #import "UIView+LFMEFrame.h"
 
-#define LFVideoTrimmerView_timeLabel_height 11.f
+#define LFVideoTrimmerView_timeLabel_height 30.f
 
 /** 视频时间（取整：四舍五入） */
 NSTimeInterval lfme_videoDuration(NSTimeInterval duration)
@@ -58,6 +58,7 @@ NSTimeInterval lfme_videoDuration(NSTimeInterval duration)
     
     /** 时间标签 */
     CGRect timeLabelRect = CGRectMake(0, 0, 60, LFVideoTrimmerView_timeLabel_height);
+    timeLabelRect.origin.y = CGRectGetHeight(self.frame)-timeLabelRect.size.height;
     UILabel *startTimeLabel = [self timeLabel];
     startTimeLabel.frame = timeLabelRect;
     startTimeLabel.text = NSLocalizedString(@"00:00", nil);
@@ -74,10 +75,11 @@ NSTimeInterval lfme_videoDuration(NSTimeInterval duration)
     
     UILabel *totalTimeLabel = [self timeLabel];
     timeLabelRect.origin.x = (CGRectGetWidth(self.frame)-timeLabelRect.size.width)/2;
-    timeLabelRect.origin.y = CGRectGetHeight(self.frame)-timeLabelRect.size.height;
+    timeLabelRect.origin.y = 0;
     totalTimeLabel.frame = timeLabelRect;
     totalTimeLabel.textAlignment = NSTextAlignmentCenter;
     totalTimeLabel.text = NSLocalizedString(@"00:00", nil);
+    totalTimeLabel.textColor = [UIColor colorWithRed:106/255.0 green:192/255.0 blue:147/255.0 alpha:1.0];
     [self addSubview:totalTimeLabel];
     _totalTimeLabel = totalTimeLabel;
     
@@ -99,7 +101,7 @@ NSTimeInterval lfme_videoDuration(NSTimeInterval duration)
 {
     UILabel *timeLabel = [[UILabel alloc] init];
     timeLabel.textColor = [UIColor whiteColor];
-    timeLabel.font = [UIFont boldSystemFontOfSize:10.f];
+    timeLabel.font = [UIFont boldSystemFontOfSize:14.f];
     timeLabel.numberOfLines = 1.f;
     return timeLabel;
 }

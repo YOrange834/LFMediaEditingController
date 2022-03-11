@@ -150,12 +150,12 @@ LFVideoEditOperationStringKey const LFVideoEditClipMaxDurationAttributeName = @"
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (_EditingView == nil) {
-        [self configEditingView];
-        [self configCustomNaviBar];
-        [self configBottomToolBar];
-        [self configDefaultOperation];
-    }
+//    if (_EditingView == nil) {
+//        [self configEditingView];
+//        [self configCustomNaviBar];
+//        [self configBottomToolBar];
+//        [self configDefaultOperation];
+//    }
 }
 
 - (void)viewWillLayoutSubviews
@@ -299,7 +299,7 @@ LFVideoEditOperationStringKey const LFVideoEditClipMaxDurationAttributeName = @"
     
     _edit_naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.lfme_width, topbarHeight)];
     _edit_naviBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-    _edit_naviBar.backgroundColor = [UIColor colorWithRed:(34/255.0) green:(34/255.0)  blue:(34/255.0) alpha:0.7];
+//    _edit_naviBar.backgroundColor = [UIColor colorWithRed:(34/255.0) green:(34/255.0)  blue:(34/255.0) alpha:0.7];
     
     UIView *naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, topbarHeight-naviHeight, _edit_naviBar.frame.size.width, naviHeight)];
     naviBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
@@ -315,15 +315,27 @@ LFVideoEditOperationStringKey const LFVideoEditClipMaxDurationAttributeName = @"
     [_edit_cancelButton addTarget:self action:@selector(cancelButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [naviBar addSubview:_edit_cancelButton];
     
-    CGFloat editOkWidth = [[NSBundle LFME_localizedStringForKey:@"_LFME_oKButtonTitle"] boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:font} context:nil].size.width + 30;
+//    CGFloat editOkWidth = [[NSBundle LFME_localizedStringForKey:@"_LFME_oKButtonTitle"] boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:font} context:nil].size.width + 30;
+    
+    CGFloat editOkWidth = [@"Next" boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:font} context:nil].size.width + 22 + 30;
+
     
     UIButton *_edit_finishButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.lfme_width - editOkWidth-margin, 0, editOkWidth, naviHeight)];
     _edit_finishButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [_edit_finishButton setTitle:[NSBundle LFME_localizedStringForKey:@"_LFME_oKButtonTitle"] forState:UIControlStateNormal];
-    _edit_finishButton.titleLabel.font = font;
-    [_edit_finishButton setTitleColor:self.oKButtonTitleColorNormal forState:UIControlStateNormal];
+//    [_edit_finishButton setTitle:[NSBundle LFME_localizedStringForKey:@"_LFME_oKButtonTitle"] forState:UIControlStateNormal];
     [_edit_finishButton addTarget:self action:@selector(finishButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [naviBar addSubview:_edit_finishButton];
+    
+    UILabel *titileLab = [[UILabel alloc]initWithFrame:(CGRectMake(15, (naviHeight - 25) / 2.0, editOkWidth - 30, 25))];
+    titileLab.text = @"Next";
+    titileLab.textColor = [UIColor whiteColor];
+    titileLab.textAlignment = NSTextAlignmentCenter;
+    titileLab.backgroundColor = [UIColor colorWithRed:106/255.0 green:192/255.0 blue:147/255.0 alpha:1.0];
+    titileLab.layer.cornerRadius = 12.5;
+    titileLab.font = [UIFont systemFontOfSize:13 weight:(UIFontWeightBold)];
+    titileLab.clipsToBounds = YES;
+    [_edit_finishButton addSubview:titileLab];
+    
     
     [self.view addSubview:_edit_naviBar];
 }
@@ -358,6 +370,8 @@ LFVideoEditOperationStringKey const LFVideoEditClipMaxDurationAttributeName = @"
     _edit_toolBar = [[LFEditToolbar alloc] initWithType:toolbarType];
     _edit_toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     _edit_toolBar.delegate = self;
+    _edit_toolBar.alpha = 0;
+    _edit_toolBar.hidden = YES;
     
     NSInteger index = 2; /** 红色 */
     
@@ -498,10 +512,10 @@ LFVideoEditOperationStringKey const LFVideoEditClipMaxDurationAttributeName = @"
 }
 - (void)singlePressedWithAnimated:(BOOL)animated
 {
-    if (!(_EditingView.isDrawing || _EditingView.isSplashing)) {
-        _isHideNaviBar = !_isHideNaviBar;
-        [self changedBarStateWithAnimated:animated];
-    }
+//    if (!(_EditingView.isDrawing || _EditingView.isSplashing)) {
+//        _isHideNaviBar = !_isHideNaviBar;
+//        [self changedBarStateWithAnimated:animated];
+//    }
 }
 - (void)cancelButtonClick
 {
@@ -1177,6 +1191,7 @@ LFVideoEditOperationStringKey const LFVideoEditClipMaxDurationAttributeName = @"
         _edit_clipping_toolBar = [[LFVideoClipToolbar alloc] initWithFrame:CGRectMake(0, self.view.lfme_height - h, self.view.lfme_width, h)];
         _edit_clipping_toolBar.alpha = 0.f;
         _edit_clipping_toolBar.delegate = self;
+        _edit_clipping_toolBar.hidden = YES;
     }
     return _edit_clipping_toolBar;
 }

@@ -133,7 +133,7 @@
     LFVideoEditingController *lfVideoEditVC = [[LFVideoEditingController alloc] init];
     lfVideoEditVC.delegate = self;
 //    lfVideoEditVC.operationType = LFVideoEditOperationType_draw | LFVideoEditOperationType_clip;
-//    lfVideoEditVC.defaultOperationType = LFVideoEditOperationType_clip; // 默认剪辑
+    lfVideoEditVC.defaultOperationType = LFVideoEditOperationType_clip; // 默认剪辑
 //    lfVideoEditVC.operationAttrs = @{
 //        LFVideoEditDrawColorAttributeName:@(LFVideoEditOperationSubTypeDrawVioletRedColor), // 绘画紫罗兰红色
 //        LFVideoEditDrawBrushAttributeName:@(LFVideoEditOperationSubTypeDrawHighlightBrush), // 绘画笔刷

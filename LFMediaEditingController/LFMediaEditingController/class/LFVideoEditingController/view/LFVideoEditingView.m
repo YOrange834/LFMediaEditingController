@@ -20,8 +20,8 @@
 #define kClipZoom_margin 20.f
 
 #define kVideoTrimmer_tb_margin 10.f
-#define kVideoTrimmer_lr_margin 50.f
-#define kVideoTrimmer_h 80.f
+#define kVideoTrimmer_lr_margin 20.f
+#define kVideoTrimmer_h 110.f
 
 NSString *const kLFVideoEditingViewData = @"LFVideoEditingViewData";
 NSString *const kLFVideoEditingViewData_clipping = @"LFVideoEditingViewData_clipping";
@@ -92,7 +92,10 @@ NSString *const kLFVideoEditingViewData_audioEnable = @"LFVideoEditingViewData_a
         toolbarHeight += self.safeAreaInsets.bottom;
     }
     
-    self.trimmerView.frame = CGRectMake(kVideoTrimmer_lr_margin, CGRectGetHeight(self.bounds)-kVideoTrimmer_h-toolbarHeight-kVideoTrimmer_tb_margin, self.bounds.size.width-kVideoTrimmer_lr_margin*2, kVideoTrimmer_h);
+//    self.trimmerView.frame = CGRectMake(kVideoTrimmer_lr_margin, CGRectGetHeight(self.bounds)-kVideoTrimmer_h-toolbarHeight-kVideoTrimmer_tb_margin, self.bounds.size.width-kVideoTrimmer_lr_margin*2, kVideoTrimmer_h);
+    
+    self.trimmerView.frame = CGRectMake(kVideoTrimmer_lr_margin, CGRectGetHeight(self.bounds)-125, self.bounds.size.width-kVideoTrimmer_lr_margin*2, kVideoTrimmer_h);
+    
 }
 
 - (void)customInit
@@ -174,9 +177,9 @@ NSString *const kLFVideoEditingViewData_audioEnable = @"LFVideoEditingViewData_a
         if (animated) {
             self.trimmerView.hidden = NO;
             self.trimmerView.alpha = 0.f;
-            CGRect rect = AVMakeRectWithAspectRatioInsideRect(self.clippingView.lfme_size, [self refer_clippingRect]);
+//            CGRect rect = AVMakeRectWithAspectRatioInsideRect(self.clippingView.lfme_size, [self refer_clippingRect]);
             [UIView animateWithDuration:0.25f animations:^{
-                self.clippingRect = rect;
+//                self.clippingRect = rect;
                 self.trimmerView.alpha = 1.f;
             } completion:^(BOOL finished) {
                 if (self.trimmerView.asset == nil) {
@@ -185,7 +188,7 @@ NSString *const kLFVideoEditingViewData_audioEnable = @"LFVideoEditingViewData_a
             }];
         } else {
             CGRect rect = AVMakeRectWithAspectRatioInsideRect(self.clippingView.lfme_size, [self refer_clippingRect]);
-            self.clippingRect = rect;
+//            self.clippingRect = rect;
             self.trimmerView.hidden = NO;
             if (self.trimmerView.asset == nil) {
                 self.trimmerView.asset = self.asset;
@@ -195,16 +198,16 @@ NSString *const kLFVideoEditingViewData_audioEnable = @"LFVideoEditingViewData_a
         /** 重置最大缩放 */
         if (animated) {
             [UIView animateWithDuration:0.25f animations:^{
-                CGRect cropRect = AVMakeRectWithAspectRatioInsideRect(self.clippingView.lfme_size, self.bounds);
-                self.clippingRect = cropRect;
+//                CGRect cropRect = AVMakeRectWithAspectRatioInsideRect(self.clippingView.lfme_size, self.bounds);
+//                self.clippingRect = cropRect;
                 self.trimmerView.alpha = 0.f;
             } completion:^(BOOL finished) {
                 self.trimmerView.alpha = 1.f;
                 self.trimmerView.hidden = YES;
             }];
         } else {
-            CGRect cropRect = AVMakeRectWithAspectRatioInsideRect(self.clippingView.lfme_size, self.bounds);
-            self.clippingRect = cropRect;
+//            CGRect cropRect = AVMakeRectWithAspectRatioInsideRect(self.clippingView.lfme_size, self.bounds);
+//            self.clippingRect = cropRect;
             self.trimmerView.hidden = YES;
         }
     }
